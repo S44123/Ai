@@ -1,5 +1,6 @@
 
-
+from flask import Flask
+import threading
 import json
 import sys
 import time
@@ -526,8 +527,23 @@ def main():
         ])
     except Exception:
         pass
-    print(f"{G}{B}✔ البوت يعمل: {me.username}{X}")
+        print(f"{G}{B}✔ البوت يعمل: {me.username}{X}")
     print(f"{D}Developer: @ZOROTOP2 — All rights reserved{X}")
+
+    # أضف أوامر الفلاسك هنا فوق تشغيل البوت:
+    app = Flask("")
+
+    @app.route("/")
+    def home():
+        return "Bot is active and running 24/7!"
+
+    def run_web():
+        app.run(host="0.0.0.0", port=8080)
+
+    t = threading.Thread(target=run_web)
+    t.daemon = True
+    t.start()
+
     run_polling()
 
 
